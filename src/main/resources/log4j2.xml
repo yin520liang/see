@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+	<Properties>
+		<Property name="appName">see</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="stdout" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%-5level] %logger{10} %msg%n" />
+		</Console>
+		<Console name="stderr" target="SYSTEM_ERR">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%-5level] %logger{10} %msg%n" />
+		</Console>
+		<RollingFile name="rf" fileName="logs/${appName}.log"
+			filePattern="logs/${appName}-%d{yyyy-MM-dd}.log">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%-5level] %logger{10} %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<AsyncRoot level="debug" additivity="false">
+			<AppenderRef ref="stdout" level="debug" />
+			<AppenderRef ref="stderr" level="warn" />
+			<AppenderRef ref="rf" level="info" />
+		</AsyncRoot>
+		<Logger name="org.hibernate" level="warn"></Logger>
+		<Logger name="org.springframework" level="warn"></Logger>
+		<Logger name="com.mchange" level="warn"></Logger>
+	</Loggers>
+</Configuration>
